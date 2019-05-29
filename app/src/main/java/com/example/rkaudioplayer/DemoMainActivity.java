@@ -31,14 +31,10 @@ public class DemoMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_demo_main);
 
         Toast.makeText(this, "Perfect RKVideoPlayer.....", Toast.LENGTH_LONG).show();
-
         apPerfect = findViewById(R.id.apPerfect);
 
-        final String songTitle = "Perfect Streaming Mp3 Music...";
-        final String audioUrl = "http://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3";
-
-        //String songTitle = "Streaming Cool Mp3 Music...";
-        //String audioUrl = "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3";
+        String songTitle = "Perfect Streaming Mp3 Music...";
+        String audioUrl = "http://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3";
 
         if (checkPermissions()) {
             apPerfect.initSong(audioUrl, songTitle);
@@ -61,6 +57,7 @@ public class DemoMainActivity extends AppCompatActivity {
                 listPermissionsNeeded.add(p);
             }
         }
+
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
             return false;

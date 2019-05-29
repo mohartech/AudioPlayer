@@ -1,52 +1,44 @@
 package com.example.perfectaudioplayer;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, MediaPlayer.OnBufferingUpdateListener {
 
     private LayoutInflater mInflater;
-    private ImageButton btnPlay;
-    private ImageButton btnBackward;
-    private TextView songTitleLabel;
-    private SeekBar songProgressBar;
-    private TextView songCurrentDurationLabel;
-    private TextView songTotalDurationLabel;
+    public ImageButton btnPlay;
+    public ImageButton btnBackward;
+    public ImageView ivBranding;
+    public RelativeLayout rootLayout;
+    public LinearLayout playerTitleHeaderBackground, songThumbnail, playerFooterBackground, llBtnBackground;
+    public TextView songTitleLabel;
+    public SeekBar songProgressBar;
+    public TextView songCurrentDurationLabel;
+    public TextView songTotalDurationLabel;
     public MediaPlayer audioPlayer;
     private Handler mHandler = new Handler();
     private Utilities utils;
     private int seekBackwardTime = 5000; // 5000 milliseconds
-    private BarVisualizer barVisualizer;
+    public BarVisualizer barVisualizer;
     private Context context;
-
-    String[] permissions = new String[]{
-            Manifest.permission.RECORD_AUDIO,
-    };
-
     private OnCompletionListener onCompletionListener;
 
     public PerfectAudioPlayer(Context context, AttributeSet attrs, int defStyle) {
@@ -66,6 +58,9 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
     public void init() {
 
         View v = mInflater.inflate(R.layout.player, this, true);
+        rootLayout = v.findViewById(R.id.rootLayout);
+
+        playerTitleHeaderBackground = v.findViewById(R.id.player_header_bg);
         btnPlay = v.findViewById(R.id.btnPlay);
         btnBackward = v.findViewById(R.id.btnBackward);
         songTitleLabel = v.findViewById(R.id.songTitle);
@@ -73,6 +68,10 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
         songTotalDurationLabel = v.findViewById(R.id.songTotalDurationLabel);
         songProgressBar = v.findViewById(R.id.songProgressBar);
         barVisualizer = v.findViewById(R.id.barVisualizer);
+        ivBranding = v.findViewById(R.id.ivBranding);
+        songThumbnail = v.findViewById(R.id.songThumbnail);
+        llBtnBackground = v.findViewById(R.id.llBtnBackground);
+        playerFooterBackground = v.findViewById(R.id.player_footer_bg);
 
         //TODO: init MediaPlayer and play the audio
         // Mediaplayer

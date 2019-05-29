@@ -36,7 +36,7 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
     private SeekBar songProgressBar;
     private TextView songCurrentDurationLabel;
     private TextView songTotalDurationLabel;
-    private MediaPlayer audioPlayer;
+    public MediaPlayer audioPlayer;
     private Handler mHandler = new Handler();
     private Utilities utils;
     private int seekBackwardTime = 5000; // 5000 milliseconds

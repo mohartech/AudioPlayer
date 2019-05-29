@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.perfectaudioplayer.OnCompletionListener;
@@ -22,6 +23,8 @@ public class DemoMainActivity extends AppCompatActivity {
             Manifest.permission.RECORD_AUDIO,
     };
 
+    int glag = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +34,8 @@ public class DemoMainActivity extends AppCompatActivity {
 
         apPerfect = findViewById(R.id.apPerfect);
 
-        String songTitle = "Perfect Streaming Mp3 Music...";
-        String audioUrl = "http://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3";
+        final String songTitle = "Perfect Streaming Mp3 Music...";
+        final String audioUrl = "http://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3";
 
         //String songTitle = "Streaming Cool Mp3 Music...";
         //String audioUrl = "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3";
@@ -45,6 +48,13 @@ public class DemoMainActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 Toast.makeText(DemoMainActivity.this, "Video Completed....Show Cfu....", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        apPerfect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apPerfect.audioPlayer.stop();
             }
         });
     }

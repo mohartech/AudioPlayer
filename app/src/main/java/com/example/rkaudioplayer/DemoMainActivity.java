@@ -50,13 +50,6 @@ public class DemoMainActivity extends AppCompatActivity {
                 Toast.makeText(DemoMainActivity.this, "Video Completed....Show Cfu....", Toast.LENGTH_LONG).show();
             }
         });
-
-        apPerfect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                apPerfect.audioPlayer.stop();
-            }
-        });
     }
 
     private boolean checkPermissions() {

@@ -1,6 +1,6 @@
 package com.example.perfectaudioplayer;
 
-import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
+
 import java.io.IOException;
 
 public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, MediaPlayer.OnBufferingUpdateListener {
@@ -36,10 +38,11 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
     public MediaPlayer audioPlayer;
     private Handler mHandler = new Handler();
     private Utilities utils;
-    private int seekBackwardTime = 5000; // 5000 milliseconds
+    public int seekBackwardTime=0; // 5000 milliseconds
     public BarVisualizer barVisualizer;
     private Context context;
     private OnCompletionListener onCompletionListener;
+    long totalDuration=0;
 
     public PerfectAudioPlayer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -125,14 +128,15 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
                     // backward to starting position
                     audioPlayer.seekTo(0);
                 }
-
             }
         });
     }
 
     public void initSong(String audioUrl, String audioTitle) {
+
         try {
             audioPlayer.reset();
+
             audioPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
             int audioSessionId = audioPlayer.getAudioSessionId();
@@ -176,7 +180,7 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
      */
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
-            long totalDuration = audioPlayer.getDuration();
+            totalDuration = audioPlayer.getDuration();
             long currentDuration = audioPlayer.getCurrentPosition();
 
             // Displaying Total Duration time
@@ -226,8 +230,12 @@ public class PerfectAudioPlayer extends RelativeLayout implements MediaPlayer.On
     @Override
     public void onCompletion(MediaPlayer arg0) {
 
-        btnPlay.setImageResource(R.drawable.btn_play);
-        onCompletionListener.onComplete();
+        if (totalDuration!= 0) {
+            btnPlay.setImageResource(R.drawable.btn_play);
+
+            onCompletionListener.onComplete();
+        }
+
         //Toast.makeText(context, "Show CFU Here", Toast.LENGTH_SHORT).show();
     }
 
